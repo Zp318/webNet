@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><%= title %></title>
+	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
+	<script src="../jquery/dist/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+	<style>
+		.table{
+			margin: 50px;
+			width: 90%;
+		}
+	</style>
+</head>
+<body>
+	<h1>分类列表页</h1>
+	<h4><a href="/admin/catetory/new" class="check"> 录入新类别 </a></h4>
+	<table class="table table-bordered">
+		<thead>
+			<th>id</th>
+			<th>类名</th>
+			<th>更新时间</th>
+			<th>操作</th>
+		</thead>
+		<tbody>
+			<% for(var i in catetories){ %>
+		        <tr>
+		            <td><%= catetories[i]._id %></td>
+		            <td><%= catetories[i].name %></td>
+		            <td><%= moment(catetories[i].meta.updateAt).format('MM/DD/YYYY') %></td>
+		            <td>
+		                <div class="mdui-typo" style="display: inline-block;">
+		                	<a href="#" class="check" data-id="<%= catetories[i]._id %>"> 查看 </a>
+		                </div>
+		            </td>
+		        </tr>
+		    <% } %>
+		</tbody>
+    </table>
+</body>
+</html>

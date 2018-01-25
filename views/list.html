@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><%= title %></title>
+	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
+	<script src="../jquery/dist/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+	<style>
+		.table{
+			margin: 50px;
+			width: 90%;
+		}
+	</style>
+</head>
+<body>
+	<h1>后台列表页</h1>
+	<h4><a href="/admin/movie" class="check"> 录入新电影 </a></h4>
+	<table class="table table-bordered">
+		<thead>
+			<th>id</th>
+			<th>分类</th>
+			<th>片名</th>
+			<th>更新时间</th>
+			<th>访问次数(pv)</th>
+			<th>操作</th>
+		</thead>
+		<tbody>
+			<% for(var i in movies){ %>
+		        <tr>
+		            <td><%= movies[i]._id %></td>
+		            <td><%= movies[i].catetory.name %></td>
+		            <td><%= movies[i].title %></td>
+		            <td><%= moment(movies[i].meta.updateAt).format('MM/DD/YYYY') %></td>
+		            <td><%= movies[i].pv %></td>
+		            <td>
+		                <div class="mdui-typo" style="display: inline-block;">
+		                	<a href="/movie/<%= movies[i]._id %>" class="check" data-id="<%= movies[i]._id %>"> 查看 </a>
+		                	<a href="/admin/movie/update?id=<%= movies[i]._id %>" class="change" data-id="<%= movies[i]._id %>"> 修改 </a>
+		                    <a href="/admin/movie/delete?id=<%= movies[i]._id %>" class="delete" data-id="<%= movies[i]._id %>"> 删除 </a>
+		                </div>
+		            </td>
+		        </tr>
+		    <% } %>
+		</tbody>
+    </table>
+</body>
+</html>

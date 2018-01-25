@@ -1,0 +1,30 @@
+{
+  "name": "webnet",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.15.5",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.0",
+    "serve-favicon": "~2.4.5"
+  },
+  "devDependencies": {
+    "bcrypt": "^1.0.3",
+    "bootstrap": "^3.3.7",
+    "connect-mongo": "^2.0.1",
+    "connect-multiparty": "^2.1.0",
+    "ejs": "^2.5.7",
+    "express-session": "^1.15.6",
+    "jade": "^1.11.0",
+    "jquery": "^3.2.1",
+    "moment": "^2.20.1",
+    "mongoose": "^4.13.9",
+    "underscore": "^1.8.3"
+  }
+}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><%= title %></title>
+	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
+	<script src="/jquery/dist/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+	<style>
+		.row>div{
+			border: solid 1px gray;
+			margin-top: 10px;
+			height: 40px;
+			line-height: 40px;
+		}
+
+		.col-xs-4{
+			background: orange;
+			border-right: none !important; 
+		}
+
+		.col-xs-8{
+			background: yellow;
+		}
+	
+		.from,.to{
+			height: 20px;
+		    line-height: 20px;
+		    color: white;
+		    padding-left: 10px;
+		    border-radius: 10px;
+		}
+
+		.from {
+		    width: 70%;
+		    background: orange;
+		    margin-top: 10px;
+		}
+
+		.to {
+		    width: 67%;
+	        margin-left: 3%;
+		    background: gray;
+		    margin-top: 2px;
+		}
+	</style>
+</head>
+<body>
+	<h1>影片详情</h1>
+	<h4><a href="/admin/movie/list" class="check"> To 后台列表 </a></h4>
+	<div class="container">
+		<div class="row">
+		  	<div class="col-xs-4">导演：</div>
+  			<div class="col-xs-8"><%= movie.doctor%></div>
+		</div>
+		<div class="row">
+		  	<div class="col-xs-4">产地：</div>
+  			<div class="col-xs-8"><%= movie.country%></div>
+		</div>
+		<div class="row">
+		  	<div class="col-xs-4">电影名：</div>
+  			<div class="col-xs-8"><%= movie.title%></div>
+		</div>
+		<div class="row">
+		  	<div class="col-xs-4">年份：</div>
+  			<div class="col-xs-8"><%= movie.year%></div>
+		</div>
+		<div class="row">
+		  	<div class="col-xs-4">语言：</div>
+  			<div class="col-xs-8"><%= movie.language%></div>
+		</div>
+		<div class="row">
+		  	<div class="col-xs-4">简介：</div>
+  			<div class="col-xs-8"><%= movie.summary%></div>
+		</div>
+	
+		<h2>评论</h2>
+	    <div>
+	    	<% for(var i in comments){ %>
+	    		<div class="from">
+	    			<span>
+		    			<a class="comment" href="#comments" data-cid="<%= comments[i]._id %>" data-tid="<%= comments[i].from._id %>"><%= comments[i].from.name %></a>&nbsp;>&nbsp;
+		    		</span>
+		    		<span><%= comments[i].content %></span>
+	    		</div>
+				<% if(comments[i].replay && comments[i].replay.length>0 ){  %>
+					<% var item = comments[i].replay; %>
+					<% item.forEach(function(ele,index){ %>
+						<div class="to">
+			    			<span>
+			    				<a class="comment" href="#comments" data-cid="<%= comments[i]._id %>" data-tid="<%= ele.from._id %>"><%= ele.from.name %></a>回复<%= ele.to.name %>
+			    			</span>
+			    			<span>&nbsp;>&nbsp;</span>
+				    		<span><%= ele.content %></span>
+			    		</div>
+					<% }) %>
+				<% } %>
+		    <% } %>
+	    </div>
+
+		<h2>评论区</h2>
+		<div id="Comments">
+			<form method="post" action="/user/comment" id="commentForm">
+				<% if(user){ %>
+	                <div class="form-group">
+	                    <input type="hidden" class="form-control" name="movie" value="<%= movie._id %>">
+	                </div>
+	                <div class="form-group">
+	                    <input type="hidden" class="form-control useridinp" name="from" value="<%= user._id %>">
+	                </div>
+	                <textarea class="form-control" name="content" row="3"></textarea>
+	                <button class="btn btn-success" type="submit" style="margin-top:20px;">提交</button>
+	            <% }else{ %>
+	            	<button class="btn btn-success" style="margin-top:20px;">登录后才能评论</button>
+	            <% } %>
+	        </form>
+	    </div>
+	</div>
+	<script>
+		$(function() {
+			// 如果是用户自己，不能点击，不能自己回复自己
+			$("a:not(:first)").each(function(index,ele) {
+				if ($(ele).data('tid') === $(".useridinp").val()) {
+					$(ele).css({"color":"white","pointer-events":"none"})
+				}
+			})
+
+			$(".comment").click(function(e) {
+				var target = $(e.target);
+				var toId = target.data('tid');
+				var commentId = target.data('cid');
+				if ($(".apphidden").length >= 2) {
+					$(".apphidden").remove();
+				}
+
+				// 自己不能回复自己
+				// if (toId === $(".useridinp").val()) {
+				// 	return;
+				// }
+				$('<input>').attr({"type":"hidden","name":"tid","value":toId,"class":"apphidden"}).appendTo('#commentForm');
+				$('<input>').attr({"type":"hidden","name":"cid","value":commentId,"class":"apphidden"}).appendTo('#commentForm');
+			})
+		})
+	</script>
+</body>
+</html>

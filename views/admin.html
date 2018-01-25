@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrapvalidator/dist/css/bootstrapValidator.css">
+    <script src="../jquery/dist/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../bootstrapvalidator/dist/js/bootstrapValidator.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+    <h1><%= title %></h1>
+    <h4><a href="/admin/movie/list" class="check"> To 后台列表 </a></h4>
+    <!-- 上传海报form表单需要添加enctype="multipart/form-data" -->
+    <form enctype="multipart/form-data" action="/admin/movie/new" method="post" id="myform" style="margin:30px;">
+        <% if(movie._id){ %>
+            <input type="hidden" name="movie[_id]" value="<%= movie._id %>">
+        <% } %>
+        <div class="form-group">
+            <label for="inputDoctor">导演：</label>
+            <input id="inputDoctor" type="text" class="form-control" name="movie[doctor]" value="<%= movie.doctor %>">
+        </div>
+        <div class="form-group">
+            <label for="inputCountry">产地：</label>
+            <input id="inputCountry" type="text" class="form-control" name="movie[country]" value="<%= movie.country %>">
+        </div>
+        <div class="form-group">
+            <label for="inputCatetoryName">分类：</label>
+            <input id="inputCatetoryName" type="text" class="form-control" name="movie[catetoryName]" value="<%= movie.catetoryName %>">
+        </div>
+        <div class="form-group">
+            <label>分类选择</label><br/>
+            <% catetories.forEach(function(cat,index){ %>
+                <label class="radio-inline">
+                    <% if(movie._id){ %>
+                        <input type="radio" name="movie[catetory]" value="<%= cat._id %>" checked="<%= cat._id.toString()==movie.catetory.toString() %>">  <%= cat.name %>
+                    <% }else{ %>
+                        <input type="radio" name="movie[catetory]" value="<%= cat._id %>">  <%= cat.name %>
+                    <% } %>
+                </label>
+            <% }) %>
+        </div>
+        <div class="form-group">
+            <label for="inputTitle">片名：</label>
+            <input id="inputTitle" type="text" class="form-control" name="movie[title]" value="<%= movie.title %>">
+        </div>
+        <div class="form-group">
+            <label for="inputYear">年份：</label>
+            <input id="inputYear" type="text" class="form-control" name="movie[year]" value="<%= movie.year %>">
+        </div>
+        <div class="form-group">
+            <label for="inputPoster">海报：</label>
+            <input id="inputPoster" type="text" class="form-control" name="movie[poster]" value="<%= movie.poster %>">
+        </div>
+        <div class="form-group">
+            <label for="uploadPoster">海报上传</label>
+            <input type="file" name="uploadPoster" id="uploadPoster">
+        </div>
+        <div class="form-group">
+            <label for="inputLanguage">语言：</label>
+            <input id="inputLanguager" type="text" class="form-control" name="movie[language]" value="<%= movie.language %>">
+        </div>
+        <div class="form-group">
+            <label for="inputFlash">地址：</label>
+            <input id="inputFlash" type="text" class="form-control" name="movie[flash]" value="<%= movie.flash %>">
+        </div>
+        <div class="form-group">
+            <label for="inputSummary">简介：</label>
+            <input id="inputSummary" type="text" class="form-control" name="movie[summary]" value="<%= movie.summary %>">
+        </div>
+        <button type="submit" class="btn btn-default">录入</button>
+    </form>
+</body>
+
+<script>
+	// $('#myform').bootstrapValidator({
+ //        message: '这个值没有被验证',
+ //        feedbackIcons: {
+ //            valid: 'glyphicon glyphicon-ok',
+ //            invalid: 'glyphicon glyphicon-remove',
+ //            validating: 'glyphicon glyphicon-refresh'
+ //        },
+ //        fields: {
+ //            doctor: {
+ //                validators: {
+ //                    notEmpty: {
+ //                        message: '导演为必填项'
+ //                    }
+ //                }
+ //            },
+ //            country: {
+ //                validators: {
+ //                    notEmpty: {
+ //                        message: '产地为必填项'
+ //                    }
+ //                }
+ //            },
+ //            catetory: {
+ //                validators: {
+ //                    notEmpty: {
+ //                        message: '分类为必填项'
+ //                    }
+ //                }
+ //            },
+ //            title: {
+ //                validators: {
+ //                    notEmpty: {
+ //                        message: '片名为必填项'
+ //                    }
+ //                }
+ //            },
+ //            year: {
+ //                validators: {
+ //                    notEmpty: {
+ //                        message: '年份为必填项'
+ //                    }
+ //                }
+ //            },
+ //            poster: {
+ //                validators: {
+ //                    notEmpty: {
+ //                        message: '海报地址为必填项'
+ //                    }
+ //                }
+ //            },
+ //            language: {
+ //                validators: {
+ //                    notEmpty: {
+ //                        message: '语言为必填项'
+ //                    }
+ //                }
+ //            },
+ //            flash: {
+ //                validators: {
+ //                    notEmpty: {
+ //                        message: '影片播放地址为必填项'
+ //                    }
+ //                }
+ //            },
+ //            summary: {
+ //                validators: {
+ //                    notEmpty: {
+ //                        message: '影片简介为必填项'
+ //                    }
+ //                }
+ //            }
+ //        }
+ //    })
+</script>
+
+</html>

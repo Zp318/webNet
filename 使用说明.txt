@@ -1,0 +1,6 @@
+mongodb文件夹下bin文件夹中命令行执行net start MongoDB启动MongoDB数据库
+
+webNet项目文件夹下如果没有node_models文件夹先执行cnpm install安装依赖包后再npm start启动项目
+
+
+官方文档：http://www.expressjs.com.cn/starter/generator.html

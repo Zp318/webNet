@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><%= title %></title>
+	<link rel="stylesheet" type="text/css" href="./admin/bootstrap/css/bootstrap.css">
+	<script src="./admin/jquery/dist/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./admin/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<h3><%= title %></h3>
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3><%= keyword %></h3>
+                </div>
+                <div class="panel-body">
+                    <% if(movies && movies.length>0){ %>
+                        <% movies.forEach(function(mymovie,index){ %>
+                            <div class="col-md-2">
+                                <div class="thumbnail">
+                                    <div class="caption">
+                                        <h3><%= mymovie.title %></h3>
+                                        <p><a href="/movie/<%= mymovie._id %>" class="btn btn-primary" role="button">播放</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %> 
+                    <% } %>           
+                </div>
+            </div>
+            <ul class="pagination">
+                <% for(var j = 0; j < totalPage; j++){ %>
+                    <% if(currentPage === (j+1)){ %>
+                        <li class="active">
+                            <span><%= currentPage %></span>
+                        </li>
+                    <% }else{ %>
+                        <li>
+                            <a href="/results?<%= query %>&page=<%= j %>"><%= j+1 %></a>
+                        </li>
+                    <% } %>
+                <% } %>  
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
